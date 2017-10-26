@@ -11,16 +11,16 @@ type Int128 struct {
 }
 
 var (
-	intOne = &Int128{1, 0}
-	intTen = &Int128{10, 0}
+	intOne = Int128{1, 0}
+	intTen = Int128{10, 0}
 )
 
 func overflow() {
 	panic("Arithmetic overflow")
 }
 
-// SetInt64 sets z to x and returns z.
-func (z *Int128) SetInt64(x int64) *Int128 {
+// FromInt64 sets z to x and returns z.
+func FromInt64(x int64) Int128 {
 	z.lo = uint64(x)
 	if x < 0 {
 		z.hi = -1
@@ -31,12 +31,12 @@ func (z *Int128) SetInt64(x int64) *Int128 {
 }
 
 // Set sets z to x and returns z.
-func (z *Int128) Set(x *Int128) *Int128 {
-	if z != x {
-		z.lo = x.lo
-		z.hi = x.hi
-	}
-	return z
+func Copy(x Int128) (z Int128) {
+
+	z.lo = x.lo
+	z.hi = x.hi
+	
+	return 
 }
 
 // Int64 returns the int64 representation of x.
